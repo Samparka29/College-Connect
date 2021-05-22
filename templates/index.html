@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<style>
+    .active li a {
+        color: #fff;
+    }
+    .column{
+        display: flex;
+        padding: 1vw;
+        background-color: black;
+        margin: 1vw;
+    }
+    .first{
+        text-align: center;
+        border: 2px solid black;
+        height: 200px;
+        width: 40%;
+        margin: 2vw;
+        margin-left: 6vw;
+        background-color:#fee3cf;
+    }
+    .second{
+        text-align: center;
+        border: 2px solid black;
+        height: 200px;
+        width: 40%;
+        margin: 2vw 3vw;
+        background-color: #cfeafe;
+    }
+    .first p, .second p{
+        margin-left: auto ;
+        margin-right: auto;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        max-width: 30rem;
+        font-size: 20px;
+    }
+    .joinbtn{
+        text-decoration: none;
+        background-color: #f2720c;
+        color: white;
+        padding: 1.2vw;
+        font-size: 2rem;
+        border-radius: 5px;
+         
+    }
+    .second a{
+        background-color: #0077cc;
+    }
+    @media only screen and (max-width: 760px){
+        .first , .second {
+            width: 45%;
+        }
+    }
+    @media only screen and (max-width: 650px){
+        .column{
+            display: block;
+        }
+        .first , .second {
+            width: 85%;
+        }
+        .first{
+            height: 220px;
+        }
+        .second{
+            margin-left: 6vw;
+        }
+    }
+</style>
+{% if user.is_authenticated %}
+
+{% else %}
+<div class="column">
+    <div class="first">
+        <p>Students can find the best answer of technical question, get notes pdfs, job and internship updates.</p>
+        <a href="accounts/signup" class="joinbtn
+        ">Join the community</a>
+    </div>
+    <div class="second">
+        <p>Faculties can upload notes for students also job and placement updates. </p>
+        <a href="accounts/signup" class="joinbtn
+        ">Start sharing</a>
+    </div>
+</div>
+{% endif %}
+<div class="main">
+    <div class="major">
+        <div class="container">
+            <h1>Recent Questions</h1>
+            {% for quest in quests %}
+            <div class="questions">
+                <div class="questionbody">
+                    <h3 id="questiontitle"><a href="/detail/{{quest.id}}">{{quest.title}}</a></h3>
+                    <p>{{quest.detail}}</p>
+                    <p>
+                        <a href="userdetail">{{quest.user.username}}</a>
+                        <a href="#">{{quest.answer_set.count}} Answer</a>
+                        <!-- <a href="">{{quest.total_comments}} Comments</a> -->
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- pagination    -->
+            <div class="pagination">
+                <ul class="paginationul">
+                    <!--checking if the page has Previous questions-->
+                    {% if quests.has_previous %}
+                    <li><a href="?page={{quests.previous_page_number}}">Previous</a></li>
+                    {% endif %}
+                    {% for i in quests.paginator.page_range %}
+                    {%if quests.number == i %}
+                    <li><a href="#" class="active">{{i}}</a></li>
+                    {%else%}
+                    <li><a href="?page={{i}}">{{i}}</a></li>
+                    {% endif%}
+                    {%endfor%}
+                    <!--checking if the page has next questions-->
+                    {% if quests.has_next %}
+                    <li><a href="?page={{quests.next_page_number}}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div class="minor">
+        {% if user.is_authenticated %}
+        <a href="{% url 'askquestion' %}" onclick="askQuestionCondition(1)">Ask Question</a>
+        {% else %}
+        <a href="{% url 'signin' %}" onclick="askQuestionCondition(0)">Ask Question</a>
+        {% endif %}
+
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+
+{% endblock %}

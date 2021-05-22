@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <style>
+        body{
+            background-color: #eff0f1;
+            
+        }
+        .signin {
+            margin-top: 10vh;
+            text-align: center;
+            
+        }
+
+    input[type=text],
+    input[type=submit] ,
+    input[type=password] {
+            width: 350px;
+            height: 45px;
+            margin: 15px 0px;
+            padding: 5px 8px;
+            outline: none;
+            border: 1px solid rgb(212, 206, 206);
+            border-radius: 5px;
+            -webkit-transition: 0.5s;
+            transition: 0.1s;
+           
+        }
+        input[type=submit] {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+        }
+        input[type=text]:focus, input[type=password]:focus {
+            border: 3px solid #2196F3;
+    
+        }
+        input[type=text]:focus, input[type=password]:focus {
+            border: 3px solid #2196F3;
+    
+        }
+
+
+        .title {
+            font-weight: bolder;
+            font-size: xx-large;
+        }
+        .signin a{
+            text-decoration: none;
+            color: #2196F3;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signin">
+        <form action="signin" method="post">
+            {% csrf_token %}
+
+            <div class="title">Sign In</div>
+
+            <div>
+                <input type="text" name="username" id="username" placeholder="Enter Name*" required>
+            </div>
+
+            <div>
+                <input type="password" name="password" id="userpassword" placeholder="Enter Password*" required>
+            </div>
+            <div>
+                <input type="submit" value="Sign In">
+            </div>
+            <div >
+                <p>Don't have an account ?</p>
+                <a href="signup">Sign up</a>
+            </div>
+
+        </form>
+        <div>
+            {% for message in messages %}
+            <h3> {{messages}} </h3>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .notes {
+        text-align: center;
+    }
+    #notesForm{
+        display: none;
+    }
+    .notesform {
+        text-align: center
+    }
+
+    .notesform h1 {
+        margin-top: 50px;
+    }
+    .notes h1{
+        margin-top: 20px;
+    }
+
+    .notesform label {
+        display: none;
+    }
+
+    .notesform input[type=text],
+    input[type=submit] {
+        width: 400px;
+        height: 50px;
+        margin: 15px 0px;
+        padding: 5px 8px;
+        outline: none;
+        border: 1px solid rgb(212, 206, 206);
+        border-radius: 5px;
+        -webkit-transition: 0.5s;
+        transition: 0.1s;
+    }
+
+    input[type=text]:focus {
+        border: 3px solid #2196F3;
+
+    }
+
+    input[type=submit],
+    td a {
+        background-color: #2196F3;
+        color: white;
+        font-size: large;
+    }
+
+    table {
+        margin: 10px auto;
+        font-size: 1.5rem;
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 60%;
+        border: 1px solid #ddd;
+        margin-bottom: 50px;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 10px;
+        
+
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+
+    td a {
+        background-color: #2196F3;
+        color: white;
+        font-size: 1.2rem;
+        padding: 5px 8px;
+        text-decoration: none;
+    }
+    .deletebtn{
+        background-color: red;
+        color: white;
+        padding: 5px 8px;
+        outline: none;
+        border: none;
+    }
+    .butn {
+        margin: 10px 20vw;
+        padding: 15px 30px;
+        width: auto;
+        height: auto;
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        transition-duration: 0.1s;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .left{
+        text-align: left;
+    }
+    @media only screen and (max-width: 700px){
+        .table{
+            width: 80%;
+            font-size: 1.8rem;
+        }
+        .butn {
+            margin: 15px 10vw;
+        }
+    }
+</style>
+
+<div class="notes">
+    <h1>NOTES</h1>
+    <div class="left">
+        <button onclick="toggle()" class="butn">Add Notes</button>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Teacher</th>
+                <th>Download</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pdf in pdfs %}
+            <tr>
+                <td>{{pdf.subject}}</td>
+                <td>{{pdf.teacher}}</td>
+                <td>
+                    <a href={{pdf.pdf.url}}>Download Pdf</a>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'delete_notes' pdf.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="deletebtn">Delete</button>
+                    </form>
+                   
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+<div class="notesform" id="notesForm">
+<hr>
+
+    <h1>Upload Notes</h1>
+    <form method="post" enctype="multipart/form-data" .>
+        {% csrf_token %}
+
+        {{form.as_p}}
+        <div>
+            <input type="submit" value="UPLOAD">
+        </div>
+
+    </form>
+
+
+</div>
+<script>
+    function toggle() {
+        var x = document.getElementById("notesForm");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
+{% endblock %}
+
+<!-- 
+<div>
+    <input type="text" name="username" placeholder="Name*" required>
+</div>
+
+<div>
+    <input type="text" name="subject"  placeholder="Subject*" required>
+</div>
+
+<div>
+    <input type="text" name="description" placeholder="Description*" required>
+</div>
+
+<div>
+    <input type="file" name="document"  required>
+</div> -->

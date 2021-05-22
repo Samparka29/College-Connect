@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- <link rel="stylesheet" href="{% static 'fa4/css/font-awesome.min.css' %}"> -->
+{% load humanize %}
+{% block title %}{{quest.title}}{% endblock %}
+{% block content %}
+<style>
+    .qcontainer {
+        margin: 8px;
+        padding: 10px;
+        margin-bottom: 2rem;
+    }
+
+    .qcontainer h2 {
+        margin: 10px 5px;
+        font-size: 2.5rem;
+    }
+
+    .qcontainer p {
+        margin: 12px 5px;
+        font-size: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    .qcontainer span {
+        margin-right: 10px;
+        margin-left: 5px;
+    }
+
+    .qcontainer a {
+        text-decoration: none;
+    }
+
+    .answers {
+        margin: 10px 0px;
+        padding: 8px;
+        display: block;
+    }
+
+    .answers p {
+        margin: 5px 10px;
+        padding: 8px;
+        font-size: 1.8rem;
+        width: 80%;
+        line-height: 2.5rem;
+    }
+
+    .answers span {
+        margin: 10px 10px;
+    }
+
+    .tags {
+        width: 98%;
+        margin-top: 25px;
+
+    }
+
+    .tags a {
+        margin: 10px 4px;
+        padding: 5px 8px;
+        background-color: #2196f3;
+        color: white;
+        text-decoration: none;
+        margin-top: 5rem;
+        border-radius: 3px;
+    }
+
+    .commentsection {
+        border: 1px solid grey;
+        display: contents;
+    }
+
+    .commentsection h3 {
+        margin: 6px 10px;
+        padding: 8px;
+        width: 95%;
+        font-size: 2rem;
+        border: 1px solid;
+    }
+
+    .comment {
+        border: 2px solid black;
+        background-color: rebeccapurple;
+
+    }
+
+    .comment p {
+        border: 2px solid gold;
+    }
+
+    .addcomment {
+        display: inline;
+        margin: 1rem;
+        width: 100%;
+    }
+
+    .addcomment h4 {
+        font-size: 1.8rem;
+        margin: 1rem 0.1rem;
+    }
+
+    .replydiv label {
+        display: none;
+    }
+
+    .replydiv h3 {
+        margin: 1rem 2rem;
+        padding: 5px;
+        width: 100%;
+        font-size: 2rem;
+    }
+
+    .details {
+        display: block;
+        margin: 1rem 3rem;
+        padding: 15px;
+        width: 70rem;
+        height: 150px;
+        resize: none;
+        border: 1px solid #BBBBBB;
+        border-radius: 6px;
+        outline: none;
+    }
+
+    textarea:focus {
+        border: 3px solid #2196f3;
+        border-radius: 6px;
+    }
+
+    input[type=submit] {
+        margin: 5px 3rem;
+        padding: 10px;
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        width: 10%;
+        cursor: pointer;
+    }
+
+    #btn {
+        display: block;
+        margin: 4px;
+        padding: 3px;
+        margin-bottom: 50px;
+    }
+
+    .answerloop {
+        display: flex;
+    }
+
+    .voting {
+        display: inline;
+
+    }
+
+    .voting strong {
+        margin: 1.4rem;
+        font-size: 1.6rem;
+    }
+
+    .upvote {
+        color: green;
+        margin: 0.5rem;
+        height: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .upvote span {
+        cursor: pointer;
+    }
+
+    .downvote span {
+        cursor: pointer;
+    }
+
+    .downvote {
+        color: red;
+        margin: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    hr {
+        margin-top: 35px;
+        margin-bottom: 15px;
+        width: 100%;
+        color: red;
+        border: 2px solid #2196f3;
+    }
+</style>
+
+<div class="qcontainer">
+    <h2>{{quest.title}}</h2>
+    <p>{{quest.detail}}</p>
+    <p>
+        <span>Asked on : {{quest.add_time|naturalday}}</span>
+        Asked by : <a href="#"> {{quest.user.username}}</a>
+    </p>
+    <div class="tags">
+        <p>
+            tags:
+            {% for tag in tags %}
+            <a href="/tag/{{tag|slugify}}">{{tag}}</a>
+            {% endfor %}
+        </p>
+    </div>
+    <!-- <p>
+        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+    </p> -->
+</div>
+
+<hr>
+
+<!-- answers section  -->
+
+<div class="answers">
+    {% for answer in answers %}
+    <div class="answerloop">
+        <div class="voting">
+            <div class="upvote">
+                <strong class="upvote-count-{{answer.id}}">{{answer.upvote_set.count}}</strong><br>
+                <span>
+                    <i class="fa fa-arrow-up fa fa-2x upvote-click" aria-hidden="true" data-answer="{{answer.id}}"></i>
+                </span>
+            </div>
+            <div class="downvote">
+                <span>
+                    <i class="fa fa-arrow-down fa-2x downvote-click" aria-hidden="true" data-answer="{{answer.id}}"></i>
+                </span><br>
+                <strong class="downvote-count-{{answer.id}}">{{answer.downvote_set.count}}</strong>
+            </div>
+        </div>
+        <p>{{ answer.detail }}
+        </p>
+    </div>
+    <p>
+        <a href="#">{{answer.user.username}}</a>
+        <!-- <span>{{answer.comment_set.count}} Comments</span> -->
+        <span>{{answer.add_time|date:'d/m/y'}}</span>
+    </p>
+
+
+    <!-- comment secion  -->
+    <!-- <div class="commentsection">
+
+        <h3>Comments : </h3>
+        {% for comment in answer.Comment_set.all %}
+        <div class="comment">
+            <p>{{comment.comment}}</p>
+            <a href="#">{{comment.user.username}}</a>
+        </div>
+        {% endfor%}
+    </div>
+
+    {% if user.is_authenticated %}
+    <! comment form -->
+    <!-- <div class="addcomment">
+        <h4>Add Comment</h4>
+        <div class="commentbody">
+            <textarea class="comment-text" cols="100" rows="5"></textarea>
+            <button type="submit" data-answer="{{answer.id}}" id="btn" class="save-comment">Submit</button>
+        </div>
+    </div> -->
+    <!-- {% endif %} --> -->
+    <hr>
+    {% endfor %}
+
+</div>
+
+{% if user.is_authenticated %}
+<!-- {% for msg in messages %}
+   <p> {{msg}} </p>
+   {%endfor %} -->
+<div class="replydiv">
+
+    <h3>Your Answer</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{answerform.as_p}}
+
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+{% endif %}
+
+<script>
+    $(document).ready(function () {
+        $(".save-comment").on('click', function () {
+            var _comment = $(".comment-text").val();
+            var _answerid = $(this).data('answer')
+            // Ajax
+            $.ajax({
+                url: "/save-comment",
+                type: "post",
+                data: {
+                    comment: _comment,
+                    answerid: _answerid,
+                    csrfmiddlewaretoken: "{{csrf_token}}"
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $(".save-comment").addClass('disabeld').text('saving...')
+                },
+                success: function (res) {
+                    console.log(res)
+                    if (res.bool == true) {
+                        $(".comment-text" + _answerid).val('');
+                    }
+                    $(".save-comment").removeClass('disabled').text('Submit')
+                }
+            })
+        })
+        // Upvote
+        $(".upvote-click").on('click', function () {
+            var answerid = $(this).data('answer');
+            // Ajax
+            $.ajax({
+                url: "/save-upvote",
+                type: "post",
+                data: {
+                    answerid: answerid,
+                    csrfmiddlewaretoken: "{{csrf_token}}"
+                },
+                dataType: 'json',
+                success: function (res) {
+                    var _prevupvote = $(".upvote-count-" + answerid).text();
+                    if (res.bool == true) {
+                        $(".upvote-count-" + answerid).text(parseInt(_prevupvote) + 1);
+                    }
+                }
+            });
+        });
+
+        // Downvote
+        $(".downvote-click").on('click', function () {
+            var answerid = $(this).data('answer');
+            // Ajax
+            $.ajax({
+                url: "/save-downvote",
+                type: "post",
+                data: {
+                    answerid: answerid,
+                    csrfmiddlewaretoken: "{{csrf_token}}"
+                },
+                dataType: 'json',
+                success: function (res) {
+                    var _prevupvote = $(".downvote-count-" + answerid).text();
+                    if (res.bool == true) {
+                        $(".downvote-count-" + answerid).text(parseInt(_prevupvote) + 1);
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

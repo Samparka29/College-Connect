@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>testing</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            /*overflow-x: hidden */
+        }
+
+        html {
+            font-size: 63%;
+        }
+        
+        .sitename{
+            text-align: center;
+            margin-bottom: 2px;
+        }
+        .sitename h1{
+            color: white;
+            background-color:#2196F3;
+            font-size: 30px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 4px 1px;
+        }
+
+        /* css for the header section   */
+        .header {
+            overflow: hidden;
+            background-color: #e9e9e9;
+            display: flex;
+            margin-top:42.5px;
+        }
+        
+        
+        .navbar span {
+            font-size: 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            display: none;
+        }
+        
+        .navbar ul {
+            list-style: none;
+            margin-left: 0.5rem;
+            display: flex;
+        }
+        #menu{
+            display: flex;
+        }
+       
+        
+        .navbar ul li a {
+            float: left;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 1.7rem;
+        }
+        .navbar ul li:first-child a {
+            
+            color: white;
+            font-weight: bold;
+        }
+        .navbar ul li:first-child a:hover {
+            
+            color: white;
+            background-color: rgb(2, 169, 247);
+
+        }
+        
+        .navbar ul li a:hover {
+            background-color: #ddd;
+            color: black;
+            
+        }
+        
+        
+        .active a {
+            background-color: #2196F3;
+            
+        }
+
+        .header input[type=text] {
+            padding: 0.6rem;
+            border: none;
+            margin-top: 0.8rem;
+            font-size: 1.7rem;
+            width: 16vw;
+        }
+
+        .btn {
+            height: 55px;
+            width: 30rem;
+            margin-right: .3rem;
+            margin-left: 18vw;
+            padding-right: 1px;
+        }
+
+        .aligncenter {
+            text-align: center;
+        }
+
+        .btn ul {
+            display: flex;
+            height: 5.1rem;
+            padding-left: 1vw;
+        }
+
+        .btn li {
+            margin: 8px 3px;
+            cursor: pointer;
+            text-decoration: none;
+            list-style: none;
+            width: fit-content;
+            padding-top: 2px;
+        }
+
+        .btn ul li a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            text-decoration: none;
+            font-size: 1.5rem;
+            padding-top: 2px;
+        }
+
+        .btn h2 {
+            margin: 15px 1.5vw;
+        }
+
+        .search {
+            display: flex;
+            margin-left: 7vw;
+            margin-right: 1vw;
+
+        }
+
+        .search img {
+            height: 32px;
+            width: 32px;
+            margin-top: 13px;
+            margin-left: 5px;
+        }
+
+        .search button {
+            border: none;
+            cursor: pointer;
+            height: 40px;
+            width: 2.6vw;
+            margin-top: 1px;
+            outline: none;
+
+        }
+
+        #signin {
+            background-color: rgb(18, 18, 230);
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 7px 5px;
+            margin-left: 7vw;
+            width: 11rem;
+
+        }
+
+        #signin a {
+            color: white;
+        }
+
+        #signup a {
+            color: white;
+        }
+
+        #signup {
+            background-color: rgb(177, 172, 172);
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 7px 5px;
+            width: 11rem;
+            margin-left: 1vw;
+
+        }
+
+        #signout {
+            background-color: rgb(252, 0, 0);
+            font-weight: bold;
+            padding: 7px 5px;
+            width: 10rem;
+        }
+
+        #signout a:hover {
+            background-color: rgb(238, 23, 23);
+        }
+
+        /* css for main body*/
+        .main {
+            display: flex;
+            background-color: white;
+            height: 150vh;
+        }
+
+        .major {
+            /*border: 2px solid black;*/
+            width: 75%;
+            margin: 1vw;
+        }
+        .minor {  
+            text-align: center;        
+            width: 20%;
+            margin: 30px 0.1vw;
+            padding: 2vw 1vw;
+            
+
+        }
+        .minor a{
+            text-decoration: none;
+            background-color: #2196F3;
+            font-weight: bold;
+            color: white;
+            padding: 1.2vw 2.5vw;
+            font-size: 1.8rem;
+            width:auto;
+            border-radius: 5px;
+        }
+
+        .container {
+            margin: 2px;
+            padding: 5px;
+        }
+        .container h1{
+            margin-left: 30px;
+            font-size: 3rem;
+            margin-top: 10px;
+        }
+
+        .questions {
+            margin: 2rem;
+            height: max-content;
+            width: 95%
+        }
+
+        .questionbody {
+            margin: 7px;
+            padding: 17px;
+            background-color: #f5f4f4;
+            border-radius: 5px;
+        }
+
+        .questionbody p {
+            margin-top: 15px;
+            margin-left: 10px;
+            font-size: 1.8rem;
+
+        }
+
+        .questionbody p a {
+            margin: 4px;
+            padding: 3px;
+            text-decoration: none;
+            color: #116cca;
+        }
+
+        .questionbody p a:hover {
+            color: rgb(28, 28, 226);
+            text-decoration: underline;
+
+        }
+
+        #questiontitle {
+            font-size: 2.2rem;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        #questiontitle a {
+            text-decoration: none;
+            color: black;
+            margin: 5px;
+            margin-bottom: 10px;
+        }
+
+        .pagination ul {
+            display: flex;
+            text-decoration: none;
+            margin-left: 30px;
+        }
+
+        .pagination ul li {
+            list-style: none;
+            margin: 0.1rem;
+            padding: 1px;
+
+
+        }
+        /* #3f51b5*/ 
+        .pagination ul li a {
+            text-decoration: none;
+            padding: 3px 2px;
+            color: blue;
+            font-size: 2rem;
+        }
+
+
+
+        .activel {
+            background-color: #f3f1f1;
+            color: white;
+        }
+
+        footer{
+            background-color: black;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            font-size: 2rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+     
+        
+
+        /* responsiveness*/
+        @media only screen and (max-width: 700px) {
+            *{
+                box-sizing: border-box;
+            }
+            html {
+                font-size: 43%;
+            }
+
+            .header {
+                display: inline-flex;
+                width: 100%;
+            }
+
+            .navbar span {
+                display: block;
+                margin: 0.8rem;
+                margin-left: 2rem;
+                font-size: 2.5rem;
+            }
+            .navbar{
+                width: 12rem;
+                margin-right: 5vw;
+            }
+
+            .navbar ul {
+                display: none;
+            }
+            .navbar ul li:first-child a {
+            
+            color: rgb(2, 169, 247);
+            font-weight: bold;
+            font-size: 3rem;        }
+
+            .navbar ul li:first-child a:hover {
+            
+            color: black;
+            background-color: rgb(2, 169, 247);
+
+            }
+            #menu{
+                display: none;
+            }
+            .navbar ul li{
+                margin: 2vw;
+                padding: 0.5rem;
+            }
+
+            .navbar ul li a {
+                display: contents;
+                margin: 1rem;
+                font-size: 2.2rem;
+
+            }
+            .header input[type=text] {
+                padding: 0.2rem 0.5rem;
+                border: none;
+                margin-top: 0.8rem;
+                font-size: 1.7rem;
+                height: 30px;
+                width: 18vw;
+            }
+    
+            .search {
+                display: flex;
+                margin-left: 3rem;
+                margin-right: 1rem;
+    
+            }
+    
+            .search img {
+                height: 30px;
+                width: 30px;
+                margin-top: 1rem;
+                margin-left: 0px;
+            }
+    
+            .search button {
+                border: none;
+                cursor: pointer;
+                height: 40px;
+                width: 1rem;
+                margin-top: 1px;
+                outline: none;
+    
+            }
+            .btn {
+                height: 50px;
+                width: 30rem;
+                margin-right: 1rem;
+                margin-left: 26vw;
+                padding-right: 0rem;
+            }
+    
+            .alignright {
+                text-align: right;
+                
+            }
+    
+            .btn ul {
+                display: flex;
+                height: 6rem;
+                padding-left: 0rem;
+            }
+    
+            .btn ul li {
+                margin: 0;
+                cursor: pointer;
+                text-decoration: none;
+                list-style: none;
+                padding-top: 4px;
+            }
+    
+            .btn ul li a {
+                float: left;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 0.5rem;
+                text-decoration: none;
+                font-size: 1.5rem;
+                padding-top: 2px;
+            }
+    
+            .btn h2 {
+                margin: 2rem 2rem;
+            }
+    
+    
+            #signin {
+                background-color: rgb(18, 18, 230);
+                font-weight: bold;
+                font-size: 1.6rem;
+                padding: 5px 12px;
+                margin: 0.8rem 2rem;
+                width: 10.8rem;
+                margin-right: 0.1vw;
+
+            }
+    
+            #signin a {
+                color: white;
+                font-size: 1.8rem;
+            }
+    
+            #signup a {
+                color: white;
+                font-size: 1.8rem;
+            }
+    
+            #signup {
+                background-color: #9b9595;
+                color: white;
+                font-weight: bolder;
+                font-size: 1.6rem;
+                padding: 6px 6px;
+                margin: 0.8rem 2rem;
+                width: 10.8rem;
+                margin-left: 0.5vw;
+    
+            }
+    
+            #signout {
+                background-color: rgb(252, 0, 0);
+                font-weight: bold;
+                text-align: center;
+                padding: 5px 5px;
+                margin: 0.8rem 2rem;
+                width: 11rem;
+            }
+            #signout a{
+                font-size: 1.7rem;
+            }
+    
+            #signout a:hover {
+                background-color: blue;
+                font-size: 1.4rem;
+            }
+            .main {
+                display: block;
+                background-color: rgb(146, 226, 247);
+                height: 150vh;
+            }
+    
+            .minor {
+                width: 28%;
+                text-align: center;
+                margin-left: 2vw;
+            }
+            .major {
+                /*border: 2px solid black;*/
+                width: 100%;
+                margin: 1rem 0px;     
+            }
+    
+            .container {
+                margin: 2px;
+                padding: 5px;
+            }
+    
+            .questions {
+                margin: 2rem;
+                height: max-content;
+                width: 95%
+            }
+            .questionbody h3 a{ 
+                font-size: 2.5rem;
+    
+            }
+            .questionbody p {
+                font-size: 2rem;
+    
+            }
+
+        }
+
+        @media (min-width: 700px) and (max-width: 900px) {
+
+            html {
+                font-size: 46%;
+            }
+            .btn {
+                height: 50px;
+                width: 30rem;
+                margin-right: 1vw;
+                margin-left: 8vw;
+                margin-top: 1rem;
+                
+            }
+            #signin{
+                padding: 4px 3px;
+                
+            }
+            .btn ul {
+                display: flex;
+                height: 6rem;
+                padding-left: 0rem;
+            }
+            #signup{
+                padding: 4px 3px;
+            }
+            .search {
+                display: flex;
+                margin-left: 5vw;
+                margin-right: 4.5vw;
+    
+            }
+            #menu{
+                display: none;
+            }
+            .navbar span {
+                display: none;
+                margin: 0.8rem;
+                margin-left: 2rem;
+                font-size: 2.5rem;
+            }
+            
+        }
+
+        @media (min-width: 900px) and (max-width: 1075px) {
+
+            html {
+                font-size: 56%;
+            }
+            .btn {
+                height: 55px;
+                width: 29rem;
+                margin-right: .1rem;
+                margin-left: 8vw;
+                padding-right: 0px;
+            }
+            .search {
+                display: flex;
+                margin-left: 8vw;
+                margin-right: 2vw;
+    
+            }
+            #signin {
+                width: 22rem;
+                  
+            }
+            #signup {
+                width: 25rem;    
+            }
+            .navbar span {
+                display: none;
+                margin: 0.8rem;
+                margin-left: 2rem;
+                font-size: 2.5rem;
+            }
+        }
+        @media (min-width: 700px) and (max-width: 1275px) {
+           
+            #menu{
+                display: flex;
+            }
+        }
+
+
+    </style>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
+</head>
+
+<body>
+    <div class="sitename">
+        <h1>College Study</h1>
+    </div>
+    <div class="header">
+        <div class="navbar">
+            <span onclick="togglefunc()">&#9776;</span>
+            <ul id="menu">
+                <li class="active" id="lk1"><a href="/">Home</a></li>
+                <li  id="lk2"><a href="{% url 'notes' %}">Notes</a></li>
+                <li  id="lk3"><a href="{% url 'jobPosting' %}">Carrers Page</a></li>
+                {% if user.is_authenticated %}
+                <li  id="lk4"><a href="{% url 'userdetail' %}" >Users</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div >
+            <form>
+                <div class="search">
+                    <input type="text" name="q" placeholder="search here">
+                    <div class="searchbtn">
+                        <button type="submit"><img src="{% static 'images.png' %}" alt="no got the image"></button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="btn">
+            <div class="aligncenter">
+                <ul>
+                    {% if user.is_authenticated %}
+                    <h2> Hello, {{user.username}}</h2>
+                    <li id="signout"><a href="{% url 'logout' %}">Sign Out</a></li>
+                    {% else %}
+                    <li id="signin"><a href="{% url 'signin' %}">Sign In</a></li>
+                    <li id="signup"><a href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif%}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    {% block content %}
+
+    {% endblock %}
+   
+
+    <script>
+        function togglefunc() {
+        const menuList = document.getElementById('menu');
+            if (menuList.style.display == "none") {
+                menuList.style.display = "contents"
+            }
+            else {
+                menuList.style.display = "none"
+            }
+            console.log(4)
+        }
+       
+        
+
+    </script>
+    <script>
+        function questionAdd() {
+            titleid = document.getElementById("titleid").value;
+            detailsid = document.getElementById("detailsid").value;
+            tagid = document.getElementById("tagid").value;
+
+            if (titleid == "") {
+                alert("Title should not be null...");
+            }
+            else if (detailsid == "") {
+                alert("details field should not be null...");
+            }
+            else if (tagid == "") {
+                alert("tag field should not be null...");
+            }
+            else {
+                alert("question has been added...");
+            }
+        }
+
+        function askQuestionCondition(n) {
+            if (n == 0)
+                alert("you must sign in before asking a question...");
+        }
+    </script>
+
+</body>
+
+</html>

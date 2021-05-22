@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{tag}}{% endblock  %}
+{% block content%}
+<div class="body">
+    <div class="main">
+        <div class="major">
+            <div class="container">
+                {% for quest in quests %}
+                <div class="questions">
+                    <div class="questionbody">
+                        <h3 id="questiontitle"><a href="/detail/{{quest.id}}">{{quest.title}}</a></h3>
+                        <p>{{quest.detail}}</p>
+                        <p>
+                            <a href="#">{{quest.user.username}}</a>
+                            <a href="#">{{quest.answer_set.count}}</a>
+                            <a href="#">{{quest.total_comments}}</a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- pagination    -->
+                <div class="pagination">
+                    <ul class="paginationul">
+                <!--checking if the page has Previous questions-->
+                        {% if quests.has_previous %}
+                        <li ><a href="?page={{quests.previous_page_number}}">Previous</a></li>
+                        {% endif %}
+                        {% for i in quests.paginator.page_range %}
+                        {%if quests.number == i%}
+                        <li ><a href="#" class="active">{{i}}</a></li>
+                       {%else%}
+                        <li ><a href="?page={{i}}">{{i}}</a></li>
+                        {% endif%}
+                       {%endfor%}
+                <!--checking if the page has next questions-->
+                        {% if quests.has_next %}
+                        <li><a href="?page={{quests.next_page_number}}">Next</a></li>
+                          {% endif %}
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+       
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

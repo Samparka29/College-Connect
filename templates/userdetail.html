@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- <link rel="stylesheet" href="{% static 'fa4/css/font-awesome.min.css' %}"> -->
+{% load humanize %}
+{% block content%}
+<style>
+    .userform{
+        margin: 25px;
+    }
+    .userform h2{
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+    .userform label{
+        margin: 10px;
+        padding: 10px;
+        padding-left: 27vw;
+        padding-right: 40px;
+        display: inline;
+        margin: auto auto;
+        font-size: 1.8rem;
+    }
+    
+    .inputtext, .password{
+        display: block;
+        margin: 15px auto;
+        padding: 15px;
+        width: 40%;
+    }
+    .password{
+
+    }
+    input[type=submit]
+    {
+        height: 40px;
+        width: 80px;
+        background: none;
+        border: 1px solid;
+        cursor: pointer;
+        transition-property: transform;
+        transition-duration: 0.3s;
+        margin-left:28.7%;
+    }
+    input[type=submit]:hover
+    {
+        transform: scale(1.1);
+        
+    }
+    .alldetail ul
+     {
+         margin: 5px;
+         display: flex;
+         padding-left: 20px;
+     }
+    .alldetail ul li{
+         padding: 5px;
+         margin-right: 1rem;
+         list-style: none;
+        
+     }
+    .alldetail ul li a{
+         text-decoration: none;
+         list-style: none;
+         font-size: 2rem;
+     }
+    .det{
+        margin: 10px 20px;
+        padding: 10px;
+    }
+    .det h3{
+        font-size: 2.5rem;
+        padding-left: 3rem;
+    }
+    .det p{
+        margin: 10px;
+        padding: 10px;
+    }
+    .det p a{
+        text-decoration: none;
+        font-size: 2rem;
+
+    }
+    .details , h3{
+        border: 1px solid rgb(216, 205, 205);
+        margin: 2px;
+        padding: 2px 10px;
+    }
+
+</style>
+
+{% if user.is_authenticated %}
+
+ 
+<div class="userform">
+
+    <h2>User Details</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}   
+        <!-- <input type="submit" onclick="questionAdd()" value="Submit">    -->     
+    </form>
+</div>
+<hr>
+<div class="alldetail">
+    <ul>
+        <li><a href="">Questions</a></li>
+        <li><a href="">Answers</a></li>
+        
+    </ul>
+</div>
+<div class="det">
+    <div>
+        <h3>My Questions - {{quests.count}}</h3>
+        {% for quest in quests %}
+        <div class="details">
+            <p><a href="/detail/{{quest.id}}">{{quest.title}}</a></p>
+        </div>
+            {% endfor %}
+    </div>
+</div>
+<div class="det">
+    <div>
+        <h3>My Answers - {{answers.count}}</h3>
+        {% for answer in answers %}
+        <div class="details">
+            <p><a href="/detail/{{answer.question.id}}">{{answer.detail}}</a></p>
+        </div>
+            {% endfor %}
+    </div>
+</div>
+
+ 
+{%endif%}
+{% endblock %}
+
+
+
+
+<!-- <div class="title">
+    {{forms.title}}
+    
+</div>        
+<div class="details">
+    {{forms.details}}
+</div>        
+<div class="tags">
+    {{forms.tags}}
+</div>      -->
+
+<!-- <div class="det">
+    <div>
+        <h2>My Question {{comment.count}}</h2>
+        <div>
+            {% for comments in comment %}
+            <p><a href="/detail/{{comments}}">{{Comments}}</a></p>
+            {% endfor %}
+        </div>
+    </div>
+</div> -->

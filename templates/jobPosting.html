@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content%}
+<style>
+    .main {
+        margin: 10px;
+        display: block;
+    }
+    .main h1{
+        text-align: center;
+        font-size: 4rem;
+    }
+
+    .body {
+        margin: 2rem;
+        padding: 2rem;
+       background-color: #e9e9e9;     
+        line-height: 2.5rem;
+    }
+
+    .body p {
+        font-size: large;
+        margin: 8px 2px;
+    }
+
+    .butn {
+        margin: 5px 2.5rem;
+        padding: 15px 30px;
+        width: auto;
+        height: auto;
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        transition-duration: 0.1s;
+        cursor: pointer;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .butn:hover {
+        background-color: rgb(8, 128, 197);
+        color: white;
+    }
+
+    #jobForm {
+        display: none;     
+        
+    }
+
+    .jobform {
+        margin: 12px 2px;
+
+    }
+
+    .jobform h2 {
+        text-align: center;
+        margin: 5rem 0rem;
+        font-size: 3rem;
+    }
+
+    .jobform label {
+        margin: 1px 10px;
+        padding: 1px;
+        padding-left: 23vw;
+        padding-right: 40px;
+        display: inline;
+        margin: auto auto;
+        font-size: 2rem;
+    }
+
+    .title,
+    .JOB_ID,
+    .Company_Name {
+        display: block;
+        margin: 10px auto;
+        margin-bottom: 20px;
+        padding: 15px;
+        width: 50%;
+        border-radius: 5px;
+    }
+
+    .Description,
+    .Basic_Qualification {
+        display: block;
+        margin: 15px auto;
+        padding: 15px;
+        width: 50%;
+        resize: none;
+        height: 60px;
+        border-radius: 5px;
+    }
+
+    input[type=submit] {
+        height: 40px;
+        width: 80px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition-property: transform;
+        transition-duration: 0.3s;
+        margin-left: 24%;
+        background-color: #2196F3;
+        color: white;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    input[type=submit]:hover {
+        transform: scale(1.1);
+
+    }
+    .row{
+        display: flex;
+    }
+    .info{
+        width: 86%;
+    }
+    .info h2{
+        font-size: 2.5rem;
+
+    }
+    .info span{
+        font-size: 1.5rem;
+        line-height: 4.5rem;
+        margin-right: 2rem;
+    }
+    .time {
+        width: 14%;
+
+    }
+    .time span{
+        font-size: 2rem;
+    }
+
+    @media only screen and (max-width: 900px){
+       
+        html {
+            font-size: 50%;
+        }
+    }
+    
+</style>
+
+<div class="main">
+    <h1 class="center">Carrier Oppurtunities</h1>
+
+    <div class="body">
+        {% for job in jobs %}
+        <div class="row">
+            <div class="info">
+                <h2>{{job.title}}</h2>
+                <span>Company : {{job.Company}}</span>
+                <span>JOB ID : {{job.JOB_ID}}</span>
+            </div>
+            <div class="time">
+                <span>Posted: {{job.add_time|naturalday}}</span>
+            </div>
+        </div>
+        <p> <b> Description</b> : <br>{{job.Description}}</p>
+        <p> <b>Basic_Qualification</b> : <br>{{job.Basic_Qualification}}</p>
+        {% endfor %}
+
+    </div>
+
+    {% if user.is_authenticated %}
+    <button onclick="toggle()" class="butn">Add New Job</button>
+    <div class="jobform" id="jobForm">
+        <hr style="margin-top:20px;">
+
+        <h2>Add job</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Submit" class="submitbtn">
+
+        </form>
+    </div>
+    {%endif%}
+</div>
+<script>
+    function toggle() {
+        var x = document.getElementById("jobForm");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+</script>
+
+
+{% endblock %}
