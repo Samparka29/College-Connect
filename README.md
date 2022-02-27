@@ -25,11 +25,12 @@ This is developed using Django, HTML, CSS, JavaScript, jQuery.
 
 -> Questions and Answer Page with Like, dislike and commnets features
 
-<img width="954" alt="Screenshot 2022-02-27 205025" src="https://user-images.githubusercontent.com/82956951/155888605-6bcf2e15-e478-4f80-b469-1609ab8675b2.png">
+<img width="960" alt="mp_qdetail" src="https://user-images.githubusercontent.com/82956951/155888646-09b55703-c16a-4ce9-8931-7db24d47ddc8.png">
 
 
 -> Notes Section
-<img width="960" alt="mp_qdetail" src="https://user-images.githubusercontent.com/82956951/155888646-09b55703-c16a-4ce9-8931-7db24d47ddc8.png">
+<img width="954" alt="Screenshot 2022-02-27 205025" src="https://user-images.githubusercontent.com/82956951/155888605-6bcf2e15-e478-4f80-b469-1609ab8675b2.png">
+
 
 
 
