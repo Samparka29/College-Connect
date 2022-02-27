@@ -1,5 +1,5 @@
-# College-Study
-This is the site where user(students) can ask their doubts, can get notes, and updates about job opportunities out there. 
+# College-Connect
+This is the site where Students 👨‍💻👨‍💻 can ask their doubts, can get updates about placements, internship and many more opportunities out there. 
 This is developed using Django, HTML, CSS, JavaScript, jQuery.
 
 
