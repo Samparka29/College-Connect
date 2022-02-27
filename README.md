@@ -1,6 +1,6 @@
 # College-Connect
-This is the site where Students 👨‍💻👨‍💻 can ask their doubts, can get updates about placements, internship and many more opportunities out there. 
-This is developed using Django, HTML, CSS, JavaScript, jQuery.
+College connect is a web-based platform which allows the students and other members to ask their doubts, can get regarding placements, internships and many more opportunities out there. 
+It is developed using Django framework for its backend , Postgre SQL for database and  HTML, CSS, JavaScript, jQuery for front-end.
 
 
 -> Home Page 
