@@ -1,5 +1,6 @@
 # College-Connect
 College connect is a web-based platform which allows the students and other members to ask their doubts, can get regarding placements, internships and many more opportunities out there. 
+
 It is developed using Django framework for its backend , Postgre SQL for database and  HTML, CSS, JavaScript, jQuery for front-end.
 
 
@@ -23,7 +24,7 @@ It is developed using Django framework for its backend , Postgre SQL for databas
 <img width="960" alt="mp_jobs" src="https://user-images.githubusercontent.com/82956951/155888672-a7f6e074-9b9d-4bab-9755-9f39750d9e77.png">
 
 
--> Questions and Answer Page with Like, dislike and commnets features
+-> Questions and Answers Page with Like, dislike and comments features
 
 <img width="960" alt="mp_qdetail" src="https://user-images.githubusercontent.com/82956951/155888646-09b55703-c16a-4ce9-8931-7db24d47ddc8.png">
 
